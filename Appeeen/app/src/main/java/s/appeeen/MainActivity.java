@@ -11,11 +11,20 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        LinearLayout mainLinearView = (LinearLayout) findViewById(R.id.mainLinear);
         for(int i = 0; i < 50; i++){
-            TextView textView = new TextView(this);
-            textView.setText(Integer.toString(i));
-            mainLinearView.addView(textView);
+
+            addViewToMainActivity(Integer.toString(i));
+
         }
+    }
+
+    private void addViewToMainActivity(String text){
+
+        LinearLayout mainLinearView = (LinearLayout) findViewById(R.id.mainLinear);
+        TextView textView = new TextView(this);
+        textView.setText(text);
+        textView.setPadding(24,24,0,24);
+        textView.setTextSize(24);
+        mainLinearView.addView(textView);
     }
 }
