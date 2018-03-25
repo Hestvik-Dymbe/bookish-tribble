@@ -56,7 +56,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editText4" />
 
-    <!--TextView
+    <TextView
         android:id="@+id/timeView"
         android:layout_width="121dp"
         android:layout_height="31dp"
@@ -67,7 +67,7 @@
         android:hint="time"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/dateView" /-->
+        app:layout_constraintTop_toBottomOf="@id/dateView" />
 
 
 </android.support.constraint.ConstraintLayout>
