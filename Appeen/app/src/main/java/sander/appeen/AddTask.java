@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.TextView;
 import android.widget.TimePicker;
@@ -22,6 +23,7 @@ public class AddTask extends AppCompatActivity {
     private TextView mDisplayTime;
     private DatePickerDialog.OnDateSetListener mDateSetListener;
     private TimePickerDialog.OnTimeSetListener mTimeSetListener;
+    private Button addButton;
 
 
     @Override
@@ -29,8 +31,11 @@ public class AddTask extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_task);
 
+
+
         mDisplayDate = (TextView) findViewById(R.id.dateView);
         mDisplayTime = (TextView) findViewById(R.id.timeView);
+        addButton = (Button) findViewById(R.id.add_button);
 
         mDisplayDate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -85,8 +90,16 @@ public class AddTask extends AppCompatActivity {
             }
         });
 
+    addButton.setOnClickListener(new View.OnClickListener(){
+        @Override
+        public void onClick(View view){
+            buttonPress();
 
+            }
+        });
     }
 
-
+private void buttonPress(){
+    //TODO: Add code
+}
 }
