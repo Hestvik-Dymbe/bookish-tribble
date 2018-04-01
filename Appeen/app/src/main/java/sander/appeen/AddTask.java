@@ -10,8 +10,10 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import java.util.Calendar;
 
@@ -24,14 +26,24 @@ public class AddTask extends AppCompatActivity {
     private DatePickerDialog.OnDateSetListener mDateSetListener;
     private TimePickerDialog.OnTimeSetListener mTimeSetListener;
     private Button addButton;
+    private EditText summaryView;
+    private EditText descriptionView;
+    private EditText stakeAmountView;
+
+    private Integer yearTime;
+    private Integer monthTime;
+    private Integer dayTime;
+    private Integer hourTime;
+    private Integer minuteTime;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_task);
-
-
+        summaryView = (EditText) findViewById(R.id.summaryEditText);
+        descriptionView = (EditText) findViewById(R.id.descriptionEditView);
+        stakeAmountView = (EditText) findViewById(R.id.stakeAmountEditView);
 
         mDisplayDate = (TextView) findViewById(R.id.dateView);
         mDisplayTime = (TextView) findViewById(R.id.timeView);
@@ -60,6 +72,9 @@ public class AddTask extends AppCompatActivity {
             public void onDateSet(DatePicker datePicker, int year, int month, int day) {
                 month = month + 1;
                 Log.d(TAG, "onDateSet: mm/dd/yyy: " + month + "/" + day + "/" + year);
+                monthTime = month;
+                dayTime = day;
+                yearTime = year;
 
                 String date = day + "/" + month + "/" + year;
                 mDisplayDate.setText(date);
@@ -68,7 +83,7 @@ public class AddTask extends AppCompatActivity {
 
 
 
-
+        //TODO Shows 10:7 instead of 10:07 for example
         mDisplayTime.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -82,6 +97,8 @@ public class AddTask extends AppCompatActivity {
                     @Override
                     public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
                         mDisplayTime.setText( selectedHour + ":" + selectedMinute);
+                        hourTime = selectedHour;
+                        minuteTime = selectedMinute;
                     }
                 }, hour, minute, true);//Yes 24 hour time
                 mTimePicker.setTitle("Select Time");
@@ -100,6 +117,34 @@ public class AddTask extends AppCompatActivity {
     }
 
 private void buttonPress(){
+    String summary = summaryView.getText().toString();
+    String description = descriptionView.getText().toString();
+    Integer stakeAmount;
+    if(stakeAmountView.getText().toString().isEmpty()){
+        stakeAmount = getApplicationContext().getResources().getInteger(R.integer.standard_stake);
+    }else{
+        stakeAmount = Integer.valueOf(stakeAmountView.getText().toString());
+    }
+
+    Calendar cal = Calendar.getInstance();
+    if(yearTime == null || monthTime == null || dayTime == null) {
+        Toast.makeText(getApplicationContext(), getText(R.string.toast_if_date_not_set), Toast.LENGTH_LONG).show();
+        return;
+    }
+    if(hourTime == null || minuteTime == null){
+        hourTime = getApplicationContext().getResources().getInteger(R.integer.standard_hour_for_task);
+        minuteTime = getApplicationContext().getResources().getInteger(R.integer.standard_minute_for_task);
+    }
+    cal.set(yearTime, monthTime, dayTime, hourTime, minuteTime);
+
+    Log.v(TAG, "UNIX time: " + String.valueOf(cal.getTime().getTime()));
+    Log.v(TAG, "summary: " + summary);
+    Log.v(TAG, "description: " + description);
+    Log.v(TAG, "stakeAmount: " + stakeAmount.toString());
+
+
     //TODO: Add code
+    finish();
+
 }
 }
