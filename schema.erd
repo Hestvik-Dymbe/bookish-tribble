@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram height="880" made_with_version="1.6" name="Default" width="1420">
+<entity id="0" is_weak="false" name="User" x="25" y="291">
+<attributes>
+<attribute is_hidden="false" is_key="true" name="UserID" type="Integer"/>
+<attribute is_hidden="false" is_key="false" name="Name" type="String"/>
+</attributes>
+</entity>
+<entity id="1" is_weak="false" name="Task" x="291" y="248">
+<attributes>
+<attribute is_hidden="false" is_key="true" name="TaskID" type="Integer"/>
+<attribute is_hidden="false" is_key="false" name="Summary" type="String"/>
+<attribute is_hidden="false" is_key="false" name="Description" type="String"/>
+<attribute is_hidden="false" is_key="false" name="Stake" type="Double"/>
+<attribute is_hidden="false" is_key="false" name="Timestamp" type="Integer"/>
+<attribute is_hidden="false" is_key="false" name="Deadline" type=""/>
+<attribute is_hidden="false" is_key="false" name="Completed" type="Boolean"/>
+<attribute is_hidden="false" is_key="false" name="OpponentID" type="Integer"/>
+<attribute is_hidden="false" is_key="false" name="UserID" type="Integer"/>
+</attributes>
+</entity>
+<diamond id="2" is_weak="false" name="" x="150" y="307">
+<attributes/>
+</diamond>
+<line cardinality_string="(0,n)" has_u="false" id="3" is_weak="false" role="" style="0" turned="false">
+<connection connection_side="2" direction="0" object_id="0" relation_point_x="75" relation_point_y="321"/>
+<connection connection_side="0" direction="0" object_id="2" relation_point_x="150" relation_point_y="323"/>
+</line>
+<line cardinality_string="(1,1)" has_u="false" id="4" is_weak="false" role="" style="0" turned="false">
+<connection connection_side="0" direction="0" object_id="1" relation_point_x="291" relation_point_y="331"/>
+<connection connection_side="2" direction="0" object_id="2" relation_point_x="182" relation_point_y="323"/>
+</line>
+</diagram>

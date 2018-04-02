@@ -1,5 +1,6 @@
 package server.handler;
 
+import com.google.gson.Gson;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 
@@ -7,11 +8,14 @@ import java.io.*;
 
 public abstract class HttpRequestHandler implements HttpHandler {
 
+    Gson gson = new Gson();
+
     @Override
     public final void handle(HttpExchange httpExchange) throws IOException {
         switch (httpExchange.getRequestMethod()) {
             case "GET":     handleGet(httpExchange);
             case "POST":    handlePost(httpExchange);
+            default:        sendResponse(httpExchange, 200, "jalla");
         }
     }
 
@@ -29,9 +33,10 @@ public abstract class HttpRequestHandler implements HttpHandler {
     }
 
     protected static void sendResponse(HttpExchange httpExchange, int statusCode, String body) throws IOException {
-        httpExchange.sendResponseHeaders(statusCode, body.length());
+        byte[] bodyBytes = body.getBytes();
+        httpExchange.sendResponseHeaders(statusCode, bodyBytes.length);
         OutputStream outputStream = httpExchange.getResponseBody();
-        outputStream.write(body.getBytes());
+        outputStream.write(bodyBytes);
         outputStream.close();
     }
 

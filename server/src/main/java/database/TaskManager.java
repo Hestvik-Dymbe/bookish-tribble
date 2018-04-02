@@ -50,6 +50,7 @@ public class TaskManager {
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             preparedStatement.setLong(1, taskId);
             ResultSet resultSet = preparedStatement.executeQuery();
+            resultSet.next();
             return parseTask(resultSet);
         } finally {
             if (connection != null) {
@@ -75,6 +76,7 @@ public class TaskManager {
 
     private static List<Task> getTaskList(Long tribblerId, Connection connection, String query) throws SQLException {
         try {
+            if ()
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             preparedStatement.setLong(1, tribblerId);
             ResultSet resultSet = preparedStatement.executeQuery();

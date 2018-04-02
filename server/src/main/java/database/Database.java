@@ -41,6 +41,22 @@ public class Database {
         return TaskManager.getAllUncompletedTasks(tribblerId, getConnection());
     }
 
+    public boolean tribblerExists(Long tribblerId) throws SQLException {
+        Connection connection = getConnection();
+        try {
+            String query = "SELECT EXISTS(SELECT 1 FROM tribbler WHERE tribblerId=(?));";
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setLong(1, tribblerId);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            resultSet.next();
+            return resultSet.getBoolean(1);
+        } finally {
+            if (connection != null) {
+                connection.close();
+            }
+        }
+    }
+
     private Connection getConnection() throws SQLException {
         return DriverManager.getConnection(url, username, password);
     }
@@ -48,7 +64,7 @@ public class Database {
     public static void main(String[] args) {
         try {
             Database db = new Database("tribble", "postgres", "root");
-            System.out.println(db.getAllCompletedTasks(null));
+            System.out.println(db.tribblerExists(5L));
         } catch (SQLException e) {
             e.printStackTrace();
         }
