@@ -1,0 +1,8 @@
+
+<resources>
+    <integer name="standard_stake">5000</integer>
+    <integer name="standard_hour_for_task">23</integer>
+    <integer name="standard_minute_for_task">59</integer>
+
+
+</resources>
